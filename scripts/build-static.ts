@@ -65,7 +65,7 @@ const { docs } = await payload.find({
 })
 
 const out = path.resolve(import.meta.dirname, '../dist-static')
-fs.rmSync(out, { recursive: true, force: true })
+for (const f of fs.existsSync(out) ? fs.readdirSync(out) : []) { if (f !== '.git') fs.rmSync(path.join(out, f), { recursive: true, force: true }) }
 fs.mkdirSync(path.join(out, 'posts'), { recursive: true })
 
 for (const post of docs) {
